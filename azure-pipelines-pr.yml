@@ -1,9 +1,10 @@
 pr:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+pool: bazel
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+
+- script: |
+    docker run -t -e USER="$(id -u)" -u="$(id -u)" -v $(Build.Repository.LocalPath):/src/workspace -w /src/workspace -v $(Build.BinariesDirectory):/tmp/build_output l.gcr.io/google/bazel:latest --output_user_root=/tmp/build_output build --remote_cache=http://23.97.218.50:8080 //absl/...
+  displayName: 'Bazel build'
