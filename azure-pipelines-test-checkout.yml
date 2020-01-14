@@ -8,5 +8,5 @@ steps:
 - checkout: none
 
 - script: |
-    git clone -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" "$(Build.Repository.Uri)" s
+    git clone -c http.sslVerify=false "$(Build.Repository.Uri)" s
   displayName: Checkout the repo
